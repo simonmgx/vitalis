@@ -1,1 +1,604 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vitalis — Trousse de secours pour traileurs</title>
+  <meta name="description" content="Vitalis, la trousse de secours légère, compacte et essentielle pour les traileurs." />
 
+  <style>
+    :root {
+      --orange: #f26a21;
+      --black: #0c0c0c;
+      --dark: #151515;
+      --white: #ffffff;
+      --gray: #cfcfcf;
+      --light: #f4f4f4;
+      --line: rgba(255,255,255,0.16);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(12,12,12,0.95);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .navbar {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 1.7rem;
+      font-weight: 900;
+      letter-spacing: 0.28em;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      border: 2px solid var(--orange);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: var(--orange);
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: var(--gray);
+      font-weight: 700;
+    }
+
+    nav a:hover {
+      color: var(--white);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: none;
+      background: var(--orange);
+      color: white;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(0.95);
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: calc(100vh - 78px);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,0.88), rgba(0,0,0,0.45), rgba(0,0,0,0.05)),
+        url("assets/vitalis-kit.png") center/cover no-repeat;
+    }
+
+    .hero-content {
+      max-width: 640px;
+      padding: 90px 0;
+    }
+
+    .brand-mark {
+      width: 130px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.5rem, 8vw, 6.8rem);
+      letter-spacing: 0.22em;
+      line-height: 0.9;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+
+    .hero h2 {
+      font-size: clamp(2.1rem, 4.5vw, 4rem);
+      line-height: 1.04;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .hero h2 span {
+      color: var(--orange);
+      display: block;
+    }
+
+    .hero p {
+      font-size: 1.28rem;
+      color: var(--light);
+      max-width: 520px;
+      margin-bottom: 28px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .feature {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      border: 2px solid var(--orange);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.35rem;
+      flex: 0 0 auto;
+    }
+
+    .feature strong {
+      display: block;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    .feature span {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .section-text {
+      color: var(--gray);
+      max-width: 760px;
+      font-size: 1.1rem;
+      margin-bottom: 36px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: #1b1b1b;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 26px;
+    }
+
+    .card small {
+      color: var(--orange);
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .card h3 {
+      margin: 12px 0;
+      font-size: 1.35rem;
+    }
+
+    .card p {
+      color: var(--gray);
+    }
+
+    #kit {
+      background: #f4f4f4;
+      color: #111;
+    }
+
+    .kit-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .kit-image {
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 22px 55px rgba(0,0,0,0.22);
+      background: white;
+    }
+
+    .kit-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .kit-list div {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 1.05rem;
+    }
+
+    .check {
+      color: var(--orange);
+      font-weight: 900;
+    }
+
+    .range {
+      background: var(--black);
+    }
+
+    .prices {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .price {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin: 12px 0;
+    }
+
+    .contact {
+      background: #151515;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+      max-width: 680px;
+      background: #fff;
+      color: #111;
+      padding: 28px;
+      border-radius: 24px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 120px;
+    }
+
+    .success {
+      display: none;
+      padding: 12px;
+      background: #e8f5e9;
+      color: #1b5e20;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 30px 0;
+      color: var(--gray);
+    }
+
+    @media (max-width: 900px) {
+      .menu-btn {
+        display: block;
+      }
+
+      nav {
+        display: none;
+        position: absolute;
+        top: 78px;
+        left: 16px;
+        right: 16px;
+        background: #151515;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 18px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      nav.open {
+        display: flex;
+      }
+
+      .hero {
+        background:
+          linear-gradient(180deg, rgba(0,0,0,0.9), rgba(0,0,0,0.35)),
+          url("assets/vitalis-kit.png") center/cover no-repeat;
+      }
+
+      .features,
+      .cards,
+      .kit-grid,
+      .prices {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .logo {
+        font-size: 1.15rem;
+      }
+
+      .hero-content {
+        padding: 60px 0;
+      }
+
+      .features {
+        gap: 14px;
+      }
+
+      .feature {
+        background: rgba(0,0,0,0.45);
+        padding: 12px;
+        border-radius: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container navbar">
+      <a class="logo" href="#accueil">
+        <span class="logo-icon">+</span>
+        <span>VITALIS</span>
+      </a>
+
+      <button class="menu-btn" id="menuBtn">☰</button>
+
+      <nav id="nav">
+        <a href="#concept">Concept</a>
+        <a href="#kit">Le kit</a>
+        <a href="#gamme">Gamme</a>
+        <a href="#contact">Précommande</a>
+        <a class="btn" href="#contact">Être alerté</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="accueil">
+    <section class="hero">
+      <div class="container hero-content">
+        <h1>VITALIS</h1>
+        <div class="subtitle">Trousse de secours pour traileurs</div>
+
+        <h2>Légère. Compacte. <span>Essentielle.</span></h2>
+
+        <p>Tout le nécessaire pour faire face aux imprévus sur vos parcours.</p>
+
+        <a class="btn" href="#kit">Découvrir le kit</a>
+
+        <div class="features">
+          <div class="feature">
+            <div class="feature-icon">🪶</div>
+            <div><strong>Ultra légère</strong><span>80 g</span></div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🎒</div>
+            <div><strong>Compacte</strong><span>10 x 7 x 4 cm</span></div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🛡️</div>
+            <div><strong>Sécurité</strong><span>Essentielle</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="concept">
+      <div class="container">
+        <h2 class="section-title">Une trousse conçue pour le terrain.</h2>
+        <p class="section-text">
+          Vitalis répond aux contraintes réelles du trail : légèreté, résistance, accessibilité rapide et simplicité d’utilisation même en situation de fatigue.
+        </p>
+
+        <div class="cards">
+          <article class="card">
+            <small>01</small>
+            <h3>Facile à emporter</h3>
+            <p>Une pochette compacte pensée pour se glisser dans un sac de trail, une ceinture ou une poche accessible.</p>
+          </article>
+
+          <article class="card">
+            <small>02</small>
+            <h3>Matériel utile</h3>
+            <p>Des éléments essentiels pour gérer les petits incidents : ampoules, plaies, frottements ou imprévus outdoor.</p>
+          </article>
+
+          <article class="card">
+            <small>03</small>
+            <h3>Conseils accessibles</h3>
+            <p>Un QR code donne accès à des fiches pratiques et vidéos courtes pour accompagner les premiers gestes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="kit">
+      <div class="container kit-grid">
+        <div>
+          <h2 class="section-title">Le kit Vitalis</h2>
+          <p class="section-text">
+            Une trousse de secours pensée pour les traileurs. Légère, compacte et complète, elle vous accompagne sur toutes vos sorties.
+          </p>
+
+          <div class="kit-list">
+            <div><span class="check">✓</span><span>Matériel de premiers secours essentiel</span></div>
+            <div><span class="check">✓</span><span>Guide de premiers secours trail</span></div>
+            <div><span class="check">✓</span><span>Vidéos et fiches pratiques accessibles via QR code</span></div>
+            <div><span class="check">✓</span><span>Conçue pour la performance et la sécurité</span></div>
+          </div>
+        </div>
+
+        <div class="kit-image">
+          <img src="assets/vitalis-kit.png" alt="Trousse de secours Vitalis pour traileurs" />
+        </div>
+      </div>
+    </section>
+
+    <section id="gamme" class="range">
+      <div class="container">
+        <h2 class="section-title">Une gamme claire selon les usages.</h2>
+        <p class="section-text">
+          Vitalis peut se décliner en plusieurs formats pour répondre aux sorties courtes, aux courses longues et à l’ultra-trail.
+        </p>
+
+        <div class="prices">
+          <article class="card">
+            <small>Trail court</small>
+            <h3>Vitalis Light</h3>
+            <div class="price">24€</div>
+            <p>Le kit minimaliste pour les sorties rapides et les premières courses.</p>
+          </article>
+
+          <article class="card">
+            <small>Cœur de gamme</small>
+            <h3>Vitalis Trail</h3>
+            <div class="price">34€</div>
+            <p>Le format équilibré pour les traileurs réguliers et les courses longues.</p>
+          </article>
+
+          <article class="card">
+            <small>Ultra</small>
+            <h3>Vitalis Ultra</h3>
+            <div class="price">49€</div>
+            <p>La version renforcée pour montagne, autonomie et longues distances.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="container">
+        <h2 class="section-title">Préparer le lancement Vitalis.</h2>
+        <p class="section-text">
+          Inscrivez-vous pour être informé du lancement et des futures précommandes.
+        </p>
+
+        <form id="form">
+          <div class="success" id="success">Merci, votre demande a bien été enregistrée.</div>
+
+          <input type="text" placeholder="Votre nom" required />
+          <input type="email" placeholder="Votre email" required />
+
+          <select required>
+            <option value="">Votre profil</option>
+            <option>Traileur régulier</option>
+            <option>Ultra-traileur</option>
+            <option>Organisateur de trail</option>
+            <option>Club ou association</option>
+          </select>
+
+          <textarea placeholder="Votre message"></textarea>
+
+          <button class="btn" type="submit">Envoyer ma demande</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 Vitalis — Prépare. Run. Protect.
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const nav = document.getElementById("nav");
+    const form = document.getElementById("form");
+    const success = document.getElementById("success");
+
+    menuBtn.addEventListener("click", function () {
+      nav.classList.toggle("open");
+      menuBtn.textContent = nav.classList.contains("open") ? "×" : "☰";
+    });
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      success.style.display = "block";
+      form.reset();
+    });
+  </script>
+</body>
+</html>
